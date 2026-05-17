@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Harinibabu — PCB Design Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg2: #111111;
+  --bg3: #161616;
+  --border: #222222;
+  --accent: #00ff88;
+  --accent2: #00ccff;
+  --text: #e8e8e8;
+  --muted: #666666;
+  --mono: 'Share Tech Mono', monospace;
+  --display: 'Syne', sans-serif;
+  --body: 'DM Sans', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* GRID BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+/* SECTIONS */
+section {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 8rem 3rem 5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* HOME */
+#home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 6rem;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tag::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+h1 {
+  font-family: var(--display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+h1 span {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--accent);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.btn-ghost {
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+.btn-ghost:hover {
+  border-color: var(--text);
+  color: var(--text);
+  background: transparent;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.stat-num {
+  font-family: var(--display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.4rem;
+}
+
+/* SECTION HEADERS */
+.section-header {
+  margin-bottom: 4rem;
+}
+
+.section-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-tag::before {
+  content: '';
+  width: 1.5rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+h2 {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* PROJECTS GRID */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+
+.project-card:hover::before { transform: scaleX(1); }
+.project-card:hover {
+  border-color: #333;
+  transform: translateY(-2px);
+}
+
+.project-meta {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-date {
+  color: var(--muted);
+}
+
+.project-card h3 {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.project-card p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ptag {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* EXPERIENCE */
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.exp-item:first-child { border-top: 1px solid var(--border); }
+
+.exp-left {
+  padding-top: 0.2rem;
+}
+
+.exp-date {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.exp-location {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.exp-right h3 {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.exp-company {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.exp-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.exp-bullets li {
+  font-size: 0.875rem;
+  color: #aaa;
+  line-height: 1.65;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.exp-bullets li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+/* CONTACT */
+#contact {
+  min-height: auto;
+  padding-bottom: 6rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.contact-info p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+  transition: color 0.2s;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.contact-link:hover { color: var(--accent); }
+
+.contact-link-icon {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.contact-link:hover .contact-link-icon {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* FORM */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.form-group input,
+.form-group textarea {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 0.88rem;
+  padding: 0.85rem 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-weight: 300;
+  resize: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+}
+
+.form-group textarea { height: 130px; }
+
+.form-status {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1rem;
+  display: none;
+}
+
+.form-status.success {
+  display: block;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.form-status.error {
+  display: block;
+  border: 1px solid #ff4444;
+  color: #ff4444;
+}
+
+/* FOOTER */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+footer p {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+/* ANIMATIONS */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1.5rem; }
+  section { padding: 6rem 1.5rem 4rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .exp-item { grid-template-columns: 1fr; gap: 0.75rem; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; }
+  .hero-stats { gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">HB // PCB ENGINEER</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="tag">Available for opportunities</div>
+  <h1>Harini<span>babu</span></h1>
+  <p class="hero-sub">PCB Design Engineer specializing in mixed-signal board design, power electronics, and RF hardware. From schematic to manufacturing release — end to end.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn">View Projects</a>
+    <a href="https://github.com/harinibabu63" target="_blank" class="btn btn-ghost">GitHub →</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div>
+      <div class="stat-num">5+</div>
+      <div class="stat-label">PCB Projects</div>
+    </div>
+    <div>
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Component Library Parts</div>
+    </div>
+    <div>
+      <div class="stat-num">6.3<span style="font-size:1.2rem">GHz</span></div>
+      <div class="stat-label">Highest RF Frequency</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header fade-in">
+    <div class="section-tag">Selected Work</div>
+    <h2>Hardware Projects</h2>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card fade-in">
+      <div class="project-meta">
+        <span>RF Design / High-Frequency PCB</span>
+        <span class="project-date">Jul 2025 – Aug 2025</span>
+      </div>
+      <h3>6.3 GHz RF Signal Generator Module</h3>
+      <p>RF signal generator producing a fixed 6.3 GHz output through an SMA connector. Built around an HMC358MS8GE VCO and HMC637ALP5E power amplifier delivering ~13 dB gain, with 50Ω controlled-impedance routing, AC coupling, bias-tee network, and a four-layer RF-aware PCB stack-up.</p>
+      <div class="project-tags">
+        <span class="ptag">VCO</span>
+        <span class="ptag">RF Amplifier</span>
+        <span class="ptag">50Ω Routing</span>
+        <span class="ptag">Coplanar Waveguide</span>
+        <span class="ptag">Bias-Tee</span>
+        <span class="ptag">AC Coupling</span>
+        <span class="ptag">SMA Output</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-meta">
+        <span>Power Electronics / AC-DC</span>
+        <span class="project-date">Apr 2025 – May 2025</span>
+      </div>
+      <h3>Isolated Flyback Converter — 120VAC to 3.3V DC</h3>
+      <p>Compact galvanically isolated flyback converter using the UCC28881 primary-side controller and a custom transformer. Includes bridge rectifier, MOV/TVS surge protection, snubber network, and LMV431 + optocoupler isolated feedback on a four-layer PCB with creepage/clearance compliance.</p>
+      <div class="project-tags">
+        <span class="ptag">UCC28881</span>
+        <span class="ptag">Flyback</span>
+        <span class="ptag">Galvanic Isolation</span>
+        <span class="ptag">Snubber</span>
+        <span class="ptag">Optocoupler</span>
+        <span class="ptag">LMV431</span>
+        <span class="ptag">HV PCB Safety</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-meta">
+        <span>PCB Design / NFC / IoT</span>
+        <span class="project-date">Jan 2025 – Feb 2025</span>
+      </div>
+      <h3>NFC Reader with Relay Control</h3>
+      <p>ESP32-based NFC reader using the TRF7970A transceiver for ISO 14443A tag detection over SPI. Reads tag UID and toggles a relay for controlling external loads like door locks or motors. Features NFC antenna tuning, relay driver with flyback protection, and RF-aware PCB layout.</p>
+      <div class="project-tags">
+        <span class="ptag">ESP32</span>
+        <span class="ptag">TRF7970A</span>
+        <span class="ptag">ISO 14443A</span>
+        <span class="ptag">SPI</span>
+        <span class="ptag">Antenna Tuning</span>
+        <span class="ptag">Relay Driver</span>
+        <span class="ptag">IoT Hardware</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-meta">
+        <span>Power Electronics / PCB Design</span>
+        <span class="project-date">Aug 2024 – Sep 2024</span>
+      </div>
+      <h3>Compact Dual-Port USB Charger Module</h3>
+      <p>Dual-port USB charger converting 12V input to regulated 5V output. Covers buck converter design, USB power switches, per-port current limiting, fault indicators, and compact PCB layout optimized for thermal management and clean power delivery.</p>
+      <div class="project-tags">
+        <span class="ptag">Buck Converter</span>
+        <span class="ptag">USB Power</span>
+        <span class="ptag">Current Limiting</span>
+        <span class="ptag">Fault Indication</span>
+        <span class="ptag">Compact Layout</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-meta">
+        <span>Embedded / Biomedical Hardware</span>
+        <span class="project-date">Feb 2024 – Mar 2024</span>
+      </div>
+      <h3>Heart Rate Monitoring System</h3>
+      <p>Embedded heart rate monitoring system with analog signal conditioning and microcontroller-based processing for real-time physiological data acquisition and display.</p>
+      <div class="project-tags">
+        <span class="ptag">Embedded Systems</span>
+        <span class="ptag">Analog Front-End</span>
+        <span class="ptag">Signal Conditioning</span>
+        <span class="ptag">Biomedical Hardware</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header fade-in">
+    <div class="section-tag">Career</div>
+    <h2>Work Experience</h2>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item fade-in">
+      <div class="exp-left">
+        <div class="exp-date">Oct 2024 – Aug 2025</div>
+        <div class="exp-location">Cerritos, CA</div>
+      </div>
+      <div class="exp-right">
+        <h3>Electrical Design Engineer</h3>
+        <div class="exp-company">CSK Foundation</div>
+        <ul class="exp-bullets">
+          <li>Engineered 6-layer mixed-signal PCBs in PADS VX2.11, partitioning analog, digital, and motor switching domains with dedicated ground and power planes — cutting noise coupling by ~20%</li>
+          <li>Achieved near-zero PCB re-spin rate by enforcing DRC and LVS sign-off before every fabrication release, reducing manufacturing iterations by ~30–50%</li>
+          <li>Developed a 50+ part custom component library from the ground up, ensuring every symbol and footprint was datasheet-verified — eliminating downstream assembly errors</li>
+          <li>Designed motor control circuits end-to-end covering H-bridge driver selection, bootstrap capacitor sizing, flyback protection, and precision current sensing</li>
+          <li>Partnered with firmware engineers to align PWM switching frequency, current sensing thresholds, and closed-loop motor control behavior between hardware and software</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-left">
+        <div class="exp-date">Jan 2019 – Jun 2019</div>
+        <div class="exp-location">Chennai, India</div>
+      </div>
+      <div class="exp-right">
+        <h3>Embedded Design Engineer</h3>
+        <div class="exp-company">Retech Solutions Pvt Ltd</div>
+        <ul class="exp-bullets">
+          <li>Led schematic validation and first-power-on bring-up for microcontroller-based boards, confirming power rail stability and peripheral behavior before firmware integration</li>
+          <li>Accelerated debug cycles by ~20–30% through structured separation of hardware root causes from firmware-side issues</li>
+          <li>Verified UART, SPI, and I2C communication interfaces using oscilloscopes and logic analyzers, ensuring signal integrity at the board level</li>
+          <li>Built reusable bring-up checklists and failure analysis documentation that shortened resolution time on subsequent prototype iterations</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-left">
+        <div class="exp-date">Mar 2018 – Oct 2018</div>
+        <div class="exp-location">Chennai, India</div>
+      </div>
+      <div class="exp-right">
+        <h3>Electrical Engineer</h3>
+        <div class="exp-company">Lumisense Technologies</div>
+        <ul class="exp-bullets">
+          <li>Inspected and verified 100% of incoming components against datasheet specifications for ZigBee and Bluetooth wireless transceiver modules before production entry</li>
+          <li>Applied hands-on expertise in wireless module fabrication — component selection criteria, mechanical fitment tolerances, and assembly consistency</li>
+          <li>Maintained detailed circuit verification and component records that supported production readiness and reduced manufacturing rework by ~15–20%</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-left">
+        <div class="exp-date">Feb 2022 – Apr 2022</div>
+        <div class="exp-location">Chennai, India</div>
+      </div>
+      <div class="exp-right">
+        <h3>Trainee / Industrial Intern</h3>
+        <div class="exp-company">BSNL</div>
+        <ul class="exp-bullets">
+          <li>Explored large-scale telecom infrastructure firsthand, tracing how signals travel through switching systems, call routing networks, and live communication hardware</li>
+          <li>Strengthened systems-level thinking by studying hardware interdependencies, signal flow behavior, and noise sources within active network environments</li>
+          <li>Supported fault diagnosis in live network hardware, building early instincts for reliability-focused engineering and structured troubleshooting</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header fade-in">
+    <div class="section-tag">Get In Touch</div>
+    <h2>Contact</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info fade-in">
+      <p>I am currently open to PCB Design Engineer roles. If you are working on hardware that needs to be reliable, well-engineered, and built to last — reach out.</p>
+      <div class="contact-links">
+        <a href="mailto:harinibabu63@gmail.com" class="contact-link">
+          <div class="contact-link-icon">@</div>
+          harinibabu63@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/harini-babu-8ba4331b8" target="_blank" class="contact-link">
+          <div class="contact-link-icon">in</div>
+          linkedin.com/in/harini-babu
+        </a>
+        <a href="https://github.com/harinibabu63" target="_blank" class="contact-link">
+          <div class="contact-link-icon">gh</div>
+          github.com/harinibabu63
+        </a>
+      </div>
+    </div>
+    <div class="fade-in">
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="fname" placeholder="Your name" required/>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="femail" placeholder="your@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="fmessage" placeholder="Tell me about the role or project..." required></textarea>
+        </div>
+        <div class="form-status" id="formStatus"></div>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Harinibabu — PCB Design Engineer</p>
+  <p>Built and deployed on Vercel</p>
+</footer>
+
+<script>
+// Fade in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Contact form
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('fname').value;
+  const email = document.getElementById('femail').value;
+  const message = document.getElementById('fmessage').value;
+  const status = document.getElementById('formStatus');
+
+  const mailto = `mailto:harinibabu63@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message)}`;
+  window.location.href = mailto;
+
+  status.className = 'form-status success';
+  status.textContent = 'Opening your email client...';
+  this.reset();
+});
+
+// Active nav link
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+  });
+});
+</script>
+</body>
+</html>
